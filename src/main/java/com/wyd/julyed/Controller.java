@@ -6,10 +6,11 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.wyd.julyed.tool.Operator;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import com.wyd.julyed.tool.*;
 
 public class Controller implements Initializable {
 
@@ -65,31 +66,24 @@ public class Controller implements Initializable {
 	}
 
 	public void clickButtonAdd() {
-		calcResult.appendText("+");
-		firstNum = false;
-		operator = Operator.ADD;
+		clickOnOperatorButton(Operator.ADD);
 	}
 
 	public void clickButtonSub() {
-		calcResult.appendText("-");
-		firstNum = false;
-		operator = Operator.SUB;
+		clickOnOperatorButton(Operator.SUB);
 	}
 
 	public void clickButtonMul() {
-		calcResult.appendText("*");
-		firstNum = false;
-		operator = Operator.MUL;
+		clickOnOperatorButton(Operator.MUL);
 	}
 
 	public void clickButtonDiv() {
-		calcResult.appendText("/");
-		firstNum = false;
-		operator = Operator.DIV;
+		clickOnOperatorButton(Operator.DIV);
 	}
 
 	public void clickButtonCalc() {
 		calcResult.appendText("=");
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Calc"));
 		if (firstNum) {
 			calcResult.clear();
 			calcResult.appendText(String.valueOf(parameter1));
@@ -100,20 +94,30 @@ public class Controller implements Initializable {
 			result = operator.calculate(parameter1, parameter2);
 			calcResult.appendText(String.valueOf(result));
 		}
+		logger.info(String.format(Constant.PATTERN_LOG_GET_RESULT, calcResult.getText()));
 	}
 
 	public void clickButtonClearAll() {
 		clearAll();
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Clear All"));
 	}
 
-	public void clickOnDigitButton(int number) {
-		logger.info("press button " + number);
+	private void clickOnDigitButton(int number) {
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, String.valueOf(number)));
 		calcResult.appendText(String.valueOf(number));
 		if (firstNum) {
 			parameter1 = parameter1 * 10 + number;
 		} else {
 			parameter2 = parameter2 * 10 + number;
 		}
+	}
+
+	private void clickOnOperatorButton(Operator operator) {
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, operator.getOperatorString()));
+		calcResult.appendText(operator.getOperatorString());
+		this.operator = operator;
+		firstNum = false;
+
 	}
 
 	public void clearAll() {

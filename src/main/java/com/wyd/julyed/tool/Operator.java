@@ -1,9 +1,20 @@
 package com.wyd.julyed.tool;
 
 public enum Operator {
-	ADD, SUB, MUL, DIV;
+	ADD("+"), SUB("-"), MUL("*"), DIV("/");
+
+	private String operator;
+
+	private Operator(String operator) {
+		this.operator = operator;
+	}
+
+	public String getOperatorString() {
+		return operator;
+	}
+
 	public int calculate(int parameter1, int parameter2) {
-		switch(this) {
+		switch (this) {
 		case ADD:
 			return parameter1 + parameter2;
 		case SUB:
