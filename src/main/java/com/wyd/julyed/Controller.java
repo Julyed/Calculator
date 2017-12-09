@@ -2,17 +2,21 @@ package com.wyd.julyed;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import com.wyd.julyed.tool.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import com.wyd.julyed.tool.*;
 
 public class Controller implements Initializable {
 
 	int parameter1, parameter2, result;
 	boolean firstNum = true;
 	Operator operator;
+	Logger logger = LogManager.getLogger(Controller.class);
 
 	@FXML
 	private TextField calcResult;
@@ -97,12 +101,13 @@ public class Controller implements Initializable {
 			calcResult.appendText(String.valueOf(result));
 		}
 	}
-	
+
 	public void clickButtonClearAll() {
 		clearAll();
 	}
-	
+
 	public void clickOnDigitButton(int number) {
+		logger.info("press button " + number);
 		calcResult.appendText(String.valueOf(number));
 		if (firstNum) {
 			parameter1 = parameter1 * 10 + number;
