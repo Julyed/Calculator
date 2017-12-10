@@ -1,5 +1,7 @@
 package com.wyd.julyed;
 
+import com.wyd.julyed.tool.GlobalManager;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +14,10 @@ public class Main extends Application {
 		try {
 			// Read file fxml and draw interface.
 			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_SCENE));
-
+			GlobalManager.setMainStage(primaryStage);
 			primaryStage.setTitle("My Calculator");
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,7 +1,7 @@
 package com.wyd.julyed.tool;
 
 public enum Operator {
-	ADD("+"), SUB("-"), MUL("*"), DIV("/");
+	NONE("#"), ADD("+"), SUB("-"), MUL("*"), DIV("/");
 
 	private String operator;
 
@@ -13,8 +13,9 @@ public enum Operator {
 		return operator;
 	}
 
-	public int calculate(int parameter1, int parameter2) {
+	public Integer calculate(int parameter1, int parameter2) {
 		switch (this) {
+		case NONE:
 		case ADD:
 			return parameter1 + parameter2;
 		case SUB:

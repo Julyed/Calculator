@@ -6,18 +6,21 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.wyd.julyed.tool.GlobalManager;
 import com.wyd.julyed.tool.Operator;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class Controller implements Initializable {
-
-	int parameter1, parameter2, result;
+public class CalculatorController implements Initializable {
+	Calculation calculation = new Calculation();
 	boolean firstNum = true;
-	Operator operator;
-	Logger logger = LogManager.getLogger(Controller.class);
+	Logger logger = LogManager.getLogger(CalculatorController.class);
 
 	@FXML
 	private TextField calcResult;
@@ -46,7 +49,6 @@ public class Controller implements Initializable {
 
 	public void clickButton6() {
 		clickOnDigitButton(6);
-
 	}
 
 	public void clickButton7() {
@@ -85,15 +87,25 @@ public class Controller implements Initializable {
 		calcResult.appendText("=");
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Calc"));
 		if (firstNum) {
-			calcResult.clear();
-			calcResult.appendText(String.valueOf(parameter1));
-		} else if (operator.equals(Operator.DIV) && parameter2 == 0) {
+			/*
+			 * 如果只输入了一个数，则认为第二个数为0
+			 */
+			calculation.setParameter2(0);
+		}
+		if (calculation.getOperator().equals(Operator.DIV) && calculation.parameter2Property().getValue() == 0) {
+			/*
+			 * 如果进行的是除法运算而除数又等于0，则报错
+			 */
 			calcResult.clear();
 			calcResult.appendText("Invalid divisor");
 		} else {
-			result = operator.calculate(parameter1, parameter2);
-			calcResult.appendText(String.valueOf(result));
+			/*
+			 * 正常运算
+			 */
+			calculation.calculateAndSetResult();
+			calcResult.appendText(String.valueOf(calculation.resultProperty().getValue()));
 		}
+		GlobalManager.getList().add(calculation);
 		logger.info(String.format(Constant.PATTERN_LOG_GET_RESULT, calcResult.getText()));
 	}
 
@@ -102,27 +114,42 @@ public class Controller implements Initializable {
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Clear All"));
 	}
 
+	public void clickButtonShowHistory() {
+		try {
+			Stage stageShowHistory = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_HISTORY_SCENE));
+
+			stageShowHistory.setTitle("Hitory You See");
+			stageShowHistory.setScene(new Scene(root));
+			stageShowHistory.initOwner(GlobalManager.getMainStage());
+			stageShowHistory.centerOnScreen();
+			stageShowHistory.showAndWait();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void clickOnDigitButton(int number) {
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, String.valueOf(number)));
 		calcResult.appendText(String.valueOf(number));
 		if (firstNum) {
-			parameter1 = parameter1 * 10 + number;
+			calculation.setParameter1(calculation.parameter1Property().getValue() * 10 + number);
 		} else {
-			parameter2 = parameter2 * 10 + number;
+			calculation.setParameter2(calculation.parameter2Property().getValue() * 10 + number);
 		}
 	}
 
 	private void clickOnOperatorButton(Operator operator) {
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, operator.getOperatorString()));
 		calcResult.appendText(operator.getOperatorString());
-		this.operator = operator;
+		calculation.setOperator(operator);
 		firstNum = false;
 
 	}
 
 	public void clearAll() {
 		calcResult.clear();
-		parameter1 = parameter2 = result = 0;
+		calculation = new Calculation();
 		firstNum = true;
 	}
 
