@@ -6,18 +6,22 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.wyd.julyed.tool.GlobalManager;
 import com.wyd.julyed.tool.Operator;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class Controller implements Initializable {
+public class CalculatorController implements Initializable {
 
-	int parameter1, parameter2, result;
+	Calculation calculation = new Calculation();
 	boolean firstNum = true;
-	Operator operator;
-	Logger logger = LogManager.getLogger(Controller.class);
+	Logger logger = LogManager.getLogger(CalculatorController.class);
 
 	@FXML
 	private TextField calcResult;
@@ -85,15 +89,16 @@ public class Controller implements Initializable {
 		calcResult.appendText("=");
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Calc"));
 		if (firstNum) {
-			calcResult.clear();
-			calcResult.appendText(String.valueOf(parameter1));
-		} else if (operator.equals(Operator.DIV) && parameter2 == 0) {
+			calculation.setParameter1(0);
+		}
+		if (calculation.getOperator().equals(Operator.DIV) && calculation.getParameter2Property().getValue() == 0) {
 			calcResult.clear();
 			calcResult.appendText("Invalid divisor");
 		} else {
-			result = operator.calculate(parameter1, parameter2);
-			calcResult.appendText(String.valueOf(result));
+			calculation.calculate();
+			calcResult.appendText(String.valueOf(calculation.getResultProperty().getValue()));
 		}
+		GlobalManager.getList().add(calculation);
 		logger.info(String.format(Constant.PATTERN_LOG_GET_RESULT, calcResult.getText()));
 	}
 
@@ -106,23 +111,39 @@ public class Controller implements Initializable {
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, String.valueOf(number)));
 		calcResult.appendText(String.valueOf(number));
 		if (firstNum) {
-			parameter1 = parameter1 * 10 + number;
+			calculation.setParameter1(calculation.getParameter1Property().getValue() * 10 + number);
 		} else {
-			parameter2 = parameter2 * 10 + number;
+			calculation.setParameter2(calculation.getParameter2Property().getValue() * 10 + number);
 		}
 	}
 
 	private void clickOnOperatorButton(Operator operator) {
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, operator.getOperatorString()));
 		calcResult.appendText(operator.getOperatorString());
-		this.operator = operator;
+		calculation.setOperator(operator);
 		firstNum = false;
 
 	}
 
+	@FXML
+	private void clickButtonShowHistory() {
+		try {
+			Stage stageShowHistory = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_HISTORY_SCENE));
+
+			stageShowHistory.setTitle("History You See");
+			stageShowHistory.setScene(new Scene(root));
+			stageShowHistory.initOwner(GlobalManager.getMainStage());
+			stageShowHistory.centerOnScreen();
+			stageShowHistory.showAndWait();
+		} catch (Exception e) {
+			logger.error("showing Error", e);
+		}
+	}
+
 	public void clearAll() {
 		calcResult.clear();
-		parameter1 = parameter2 = result = 0;
+		calculation = new Calculation();
 		firstNum = true;
 	}
 

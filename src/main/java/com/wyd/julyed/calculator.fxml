@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="437.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wyd.julyed.Controller">
+<AnchorPane prefHeight="437.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wyd.julyed.CalculatorController">
    <children>
       <Button layoutX="49.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton1" text="1" />
       <Button layoutX="100.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton2" text="2" />
@@ -25,5 +25,6 @@
       <TextField fx:id="calcResult" layoutX="49.0" layoutY="34.0" prefHeight="50.0" prefWidth="161.0" />
       <Button layoutX="239.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickButtonCalc" prefHeight="50.0" prefWidth="57.0" text="Calc" />
       <Button layoutX="49.0" layoutY="301.0" mnemonicParsing="false" onAction="#clickButtonClearAll" prefHeight="50.0" prefWidth="248.0" text="Clear All" />
+      <Button layoutX="49.0" layoutY="364.0" mnemonicParsing="false" onAction="#clickButtonShowHistory" prefHeight="50.0" prefWidth="248.0" text="Show History" />
    </children>
 </AnchorPane>

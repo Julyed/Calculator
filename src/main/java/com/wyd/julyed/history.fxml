@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wyd.julyed.HistoryController">
+   <children>
+      <TableView fx:id="tableViewHistory" layoutY="-24.0" prefHeight="224.0" prefWidth="381.0">
+        <columns>
+          <TableColumn fx:id="tableColumnParameter1" prefWidth="75.0" text="parameter1" />
+          <TableColumn fx:id="tableColumnOperator" prefWidth="75.0" text="operator" />
+            <TableColumn fx:id="tableColumnParameter2" prefWidth="75.0" text="parameter2" />
+            <TableColumn fx:id="tableColumnCalc" prefWidth="75.0" text="Calc" />
+            <TableColumn fx:id="tableColumnResult" prefWidth="75.0" text="result" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
