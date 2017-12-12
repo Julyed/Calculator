@@ -97,14 +97,31 @@ public class CalculatorController implements Initializable {
 		} else {
 			calculation.calculate();
 			calcResult.appendText(String.valueOf(calculation.getResultProperty().getValue()));
+			GlobalManager.getList().add(calculation);
 		}
-		GlobalManager.getList().add(calculation);
+
 		logger.info(String.format(Constant.PATTERN_LOG_GET_RESULT, calcResult.getText()));
 	}
 
 	public void clickButtonClearAll() {
 		clearAll();
 		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Clear All"));
+	}
+
+	@FXML
+	private void clickButtonShowHistory() {
+		try {
+			Stage stageShowHistory = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_HISTORY_SCENE));
+
+			stageShowHistory.setTitle("History You See");
+			stageShowHistory.setScene(new Scene(root));
+			stageShowHistory.initOwner(GlobalManager.getMainStage());
+			stageShowHistory.centerOnScreen();
+			stageShowHistory.showAndWait();
+		} catch (Exception e) {
+			logger.error("showing Error", e);
+		}
 	}
 
 	private void clickOnDigitButton(int number) {
@@ -123,22 +140,6 @@ public class CalculatorController implements Initializable {
 		calculation.setOperator(operator);
 		firstNum = false;
 
-	}
-
-	@FXML
-	private void clickButtonShowHistory() {
-		try {
-			Stage stageShowHistory = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_HISTORY_SCENE));
-
-			stageShowHistory.setTitle("History You See");
-			stageShowHistory.setScene(new Scene(root));
-			stageShowHistory.initOwner(GlobalManager.getMainStage());
-			stageShowHistory.centerOnScreen();
-			stageShowHistory.showAndWait();
-		} catch (Exception e) {
-			logger.error("showing Error", e);
-		}
 	}
 
 	public void clearAll() {

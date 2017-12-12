@@ -7,7 +7,7 @@
 	<version>1.0</version>
 	<name>calculator</name>
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory><!-- java工程根目录  -->
+		<sourceDirectory>src/main/java</sourceDirectory><!-- java工程根目录 -->
 		<resources><!-- 资源文件目录 -->
 			<resource>
 				<directory>src/main/java</directory>
@@ -65,6 +65,11 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+			<version>2.0.6</version>
 		</dependency>
 	</dependencies>
 </project>

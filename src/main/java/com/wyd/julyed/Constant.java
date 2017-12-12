@@ -7,4 +7,7 @@ public class Constant {
 
 	public static final String PATTERN_LOG_PRESS_BUTTON = "press button %s";
 	public static final String PATTERN_LOG_GET_RESULT = "get result %s";
+
+	public static final String SUCCESS = "Success!";
+	public static final String ERROR = "Error!";
 }
