@@ -1,4 +1,4 @@
-package com.wyd.julyed.tool;
+package com.wyd.julyed.tool.enums;
 
 import com.wyd.julyed.Constant;
 

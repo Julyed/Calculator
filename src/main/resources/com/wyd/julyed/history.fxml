@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="330.0" prefWidth="381.0"
     xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.wyd.julyed.HistoryController">
+    fx:controller="com.wyd.julyed.controller.HistoryController">
     <children>
         <TableView fx:id="tableViewHistory" prefHeight="227.0"
             prefWidth="381.0">
@@ -29,6 +29,6 @@
             prefWidth="248.0" text="Save History" />
         <Button layoutX="54.0" layoutY="277.0" mnemonicParsing="false"
             onAction="#clickButtonShowLocalHistory" prefHeight="29.0"
-            prefWidth="248.0" text="Show Local History" />
+            prefWidth="248.0" text="Import History" />
     </children>
 </AnchorPane>

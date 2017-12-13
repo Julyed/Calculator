@@ -1,6 +1,6 @@
 package com.wyd.julyed;
 
-import com.wyd.julyed.tool.Operator;
+import com.wyd.julyed.tool.enums.Operator;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

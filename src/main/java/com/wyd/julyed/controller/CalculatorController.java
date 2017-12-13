@@ -1,4 +1,4 @@
-package com.wyd.julyed;
+package com.wyd.julyed.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -6,8 +6,10 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.wyd.julyed.Calculation;
+import com.wyd.julyed.Constant;
 import com.wyd.julyed.tool.GlobalManager;
-import com.wyd.julyed.tool.Operator;
+import com.wyd.julyed.tool.enums.Operator;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +21,9 @@ import javafx.stage.Stage;
 
 public class CalculatorController implements Initializable {
 
-    Calculation calculation = new Calculation();
-    boolean firstNum = true;
-    Logger logger = LogManager.getLogger(CalculatorController.class);
+    private Calculation calculation = new Calculation();
+    private boolean firstNum = true;
+    private static Logger logger = LogManager.getLogger(CalculatorController.class);
 
     @FXML
     private TextField calcResult;

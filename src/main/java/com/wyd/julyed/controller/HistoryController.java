@@ -1,4 +1,4 @@
-package com.wyd.julyed;
+package com.wyd.julyed.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.JDOMException;
 
+import com.wyd.julyed.Calculation;
+import com.wyd.julyed.Constant;
 import com.wyd.julyed.tool.DialogHelper;
+import com.wyd.julyed.tool.ExportDocument;
 import com.wyd.julyed.tool.GlobalManager;
+import com.wyd.julyed.tool.ImportDocument;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +26,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class HistoryController implements Initializable {
     private static ObservableList<Calculation> list = GlobalManager.getList();
-    private static BuildDocument buildDocument = new BuildDocument();
     private static Logger logger = LogManager.getLogger(HistoryController.class);
 
     @FXML
@@ -39,19 +42,16 @@ public class HistoryController implements Initializable {
     private TableColumn<Calculation, String> tableColumnCalc;
 
     public void clickButtonSaveHistory() {
-        // 普通的循环
-        // for (Calculation calculation : list) {
-        // buildDocument.addElement(calculation);
-        // }
-        // 文艺的循环
-        list.forEach(item -> buildDocument.addElement(item));
         try {
             // save as:
             FileChooser saveHistoryFileChooser = new FileChooser();
             ExtensionFilter filter = new ExtensionFilter(Constant.STRING_XML_FILE, Constant.EXTENSION_XML);
             saveHistoryFileChooser.getExtensionFilters().add(filter);
             File saveFile = saveHistoryFileChooser.showSaveDialog(GlobalManager.getMainStage());
-            buildDocument.outputXmlFile(saveFile);
+            if (saveFile == null) {
+                return ;
+            }
+            ExportDocument.exportXmlFile(saveFile);
             // 保存成功弹出框
             DialogHelper.popupInformation(null, Constant.STRING_SUCCESS);
         } catch (IOException e) {
@@ -66,8 +66,11 @@ public class HistoryController implements Initializable {
         ExtensionFilter filter = new ExtensionFilter(Constant.STRING_XML_FILE, Constant.EXTENSION_XML);
         localHistoryFileChooser.getExtensionFilters().add(filter);
         File localFile = localHistoryFileChooser.showOpenDialog(GlobalManager.getMainStage());
+        if (localFile == null) {
+            return ;
+        }
         try {
-            ImportDocument.importDocument(localFile);
+            ImportDocument.importXmlFile(localFile);
         } catch (JDOMException | IOException e) {
             logger.error(String.format(Constant.PATTERN_EXCEPTION_AT_METHOD, GlobalManager.getMethodName()), e);
         }

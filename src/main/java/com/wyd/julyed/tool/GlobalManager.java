@@ -1,7 +1,7 @@
 package com.wyd.julyed.tool;
 
 import com.wyd.julyed.Calculation;
-import com.wyd.julyed.HistoryController;
+import com.wyd.julyed.controller.HistoryController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
