@@ -91,7 +91,7 @@ public class CalculatorController implements Initializable {
         calcResult.appendText(Constant.OPERATOR_EQU);
         logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, Constant.STRING_CALC));
         if (firstNum) {
-            calculation.setParameter1(0);
+            calculation.setParameter2(0);
         }
         if (calculation.getOperator().equals(Operator.DIV) && calculation.getParameter2Property().getValue() == 0) {
             calcResult.clear();

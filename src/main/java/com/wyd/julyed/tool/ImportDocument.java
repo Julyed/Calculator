@@ -13,7 +13,7 @@ import com.wyd.julyed.Constant;
 import com.wyd.julyed.tool.enums.Operator;
 
 public class ImportDocument {
-    
+
     public static void importXmlFile(File importXmlFile) throws JDOMException, IOException {
         SAXBuilder saxReader = new SAXBuilder();
         Document document = saxReader.build(importXmlFile);

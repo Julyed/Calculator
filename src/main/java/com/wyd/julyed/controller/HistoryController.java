@@ -49,7 +49,7 @@ public class HistoryController implements Initializable {
             saveHistoryFileChooser.getExtensionFilters().add(filter);
             File saveFile = saveHistoryFileChooser.showSaveDialog(GlobalManager.getMainStage());
             if (saveFile == null) {
-                return ;
+                return;
             }
             ExportDocument.exportXmlFile(saveFile);
             // 保存成功弹出框
@@ -67,7 +67,7 @@ public class HistoryController implements Initializable {
         localHistoryFileChooser.getExtensionFilters().add(filter);
         File localFile = localHistoryFileChooser.showOpenDialog(GlobalManager.getMainStage());
         if (localFile == null) {
-            return ;
+            return;
         }
         try {
             ImportDocument.importXmlFile(localFile);
@@ -88,10 +88,5 @@ public class HistoryController implements Initializable {
 
         tableViewHistory.setItems(list);
 
-    }
-
-    public void addToList(Calculation calculation) {
-        list.add(calculation);
-        tableViewHistory.refresh();
     }
 }
