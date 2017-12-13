@@ -21,7 +21,6 @@ public class Calculation {
 	public Calculation() {
 		setParameter1(0);
 		setParameter2(0);
-
 	}
 
 	public void setParameter1(int parameter) {
