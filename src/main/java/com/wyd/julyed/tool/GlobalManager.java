@@ -8,34 +8,34 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 public class GlobalManager {
-	private static Stage mainStage;
-	private static HistoryController historyController;
-	private static ObservableList<Calculation> list = FXCollections.observableArrayList();
+    private static Stage mainStage;
+    private static HistoryController historyController;
+    private static ObservableList<Calculation> list = FXCollections.observableArrayList();
 
-	public static Stage getMainStage() {
-		return mainStage;
-	}
+    public static Stage getMainStage() {
+        return mainStage;
+    }
 
-	public static void setMainStage(Stage mainStage) {
-		GlobalManager.mainStage = mainStage;
-	}
+    public static void setMainStage(Stage mainStage) {
+        GlobalManager.mainStage = mainStage;
+    }
 
-	public static HistoryController getHistoryController() {
-		return historyController;
-	}
+    public static HistoryController getHistoryController() {
+        return historyController;
+    }
 
-	public static void setHistoryController(HistoryController historyController) {
-		GlobalManager.historyController = historyController;
-	}
+    public static void setHistoryController(HistoryController historyController) {
+        GlobalManager.historyController = historyController;
+    }
 
-	public static ObservableList<Calculation> getList() {
-		return list;
-	}
+    public static ObservableList<Calculation> getList() {
+        return list;
+    }
 
-	public static String getMethodName() {
-		StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-		StackTraceElement e = stacktrace[2];
-		String methodName = e.getMethodName();
-		return methodName;
-	}
+    public static String getMethodName() {
+        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+        StackTraceElement e = stacktrace[2];
+        String methodName = e.getMethodName();
+        return methodName;
+    }
 }
