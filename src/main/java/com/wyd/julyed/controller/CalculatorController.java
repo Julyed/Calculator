@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -27,6 +28,9 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private TextField calcResult;
+
+    @FXML
+    private Button showHistoryButton;
 
     // When user click on myButton
     // this method will be called.
@@ -68,6 +72,13 @@ public class CalculatorController implements Initializable {
     }
 
     public void clickButton0() {
+        if (firstNum && calculation.getParameter1Property().getValue().equals(0) && calcResult.getText().length() > 0) {
+            return;
+        }
+        if (!firstNum && calculation.getParameter2Property().getValue().equals(0) && calcResult.getText()
+                .substring(calcResult.getText().indexOf(calculation.getOperator().getOperatorString())).length() > 1) {
+            return;
+        }
         clickOnDigitButton(0);
     }
 
@@ -88,7 +99,9 @@ public class CalculatorController implements Initializable {
     }
 
     public void clickButtonCalc() {
-        calcResult.appendText(Constant.OPERATOR_EQU);
+        if (calculation.isCalculated()) {
+            return;
+        }
         logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, Constant.STRING_CALC));
         if (firstNum) {
             calculation.setParameter2(0);
@@ -97,11 +110,16 @@ public class CalculatorController implements Initializable {
             calcResult.clear();
             calcResult.appendText(Constant.STRING_INVALID_DIVISOR);
         } else {
+            if (!calculation.getOperator().equals(Operator.NONE)
+                    && calculation.getParameter2Property().getValue().equals(0)) {
+                clickButton0();
+            }
+            calcResult.appendText(Constant.OPERATOR_EQU);
             calculation.calculate();
             calcResult.appendText(String.valueOf(calculation.getResultProperty().getValue()));
             GlobalManager.getList().add(calculation);
         }
-
+        calculation.setCalculated(true);
         logger.info(String.format(Constant.PATTERN_LOG_GET_RESULT, calcResult.getText()));
     }
 
@@ -120,6 +138,8 @@ public class CalculatorController implements Initializable {
             stageShowHistory.setScene(new Scene(root));
             stageShowHistory.initOwner(GlobalManager.getMainStage());
             stageShowHistory.centerOnScreen();
+            stageShowHistory.setOnCloseRequest(event -> showHistoryButton.setDisable(false));
+            showHistoryButton.setDisable(true);
             stageShowHistory.showAndWait();
         } catch (Exception e) {
             logger.error(String.format(Constant.PATTERN_EXCEPTION_AT_METHOD, GlobalManager.getMethodName()), e);
@@ -127,6 +147,9 @@ public class CalculatorController implements Initializable {
     }
 
     private void clickOnDigitButton(int number) {
+        if (calculation.isCalculated()) {
+            clickButtonClearAll();
+        }
         logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, String.valueOf(number)));
         calcResult.appendText(String.valueOf(number));
         if (firstNum) {
@@ -137,6 +160,18 @@ public class CalculatorController implements Initializable {
     }
 
     private void clickOnOperatorButton(Operator operator) {
+        if (calculation.isCalculated()) {
+            return;
+        }
+        if (!firstNum) {
+            calcResult.setText(calcResult.getText().replace(calculation.getOperator().getOperatorString(),
+                    operator.getOperatorString()));
+            calculation.setOperator(operator);
+            return;
+        }
+        if (calculation.getParameter1Property().getValue().equals(0)) {
+            clickButton0();
+        }
         logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, operator.getOperatorString()));
         calcResult.appendText(operator.getOperatorString());
         calculation.setOperator(operator);

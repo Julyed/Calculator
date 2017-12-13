@@ -21,6 +21,7 @@ public class Constant {
     public static final String STRING_CLEAR_ALL = "Clear All";
     public static final String STRING_CALC = "Calc";
     public static final String STRING_INVALID_DIVISOR = "Invalid divisor";
+    public static final String SYMBOL_DECIMAL_POINT = ".";
 
     public static final String OPERATOR_ADD = "+";
     public static final String OPERATOR_SUB = "-";

@@ -53,19 +53,19 @@ public enum Operator {
         return null;
     }
 
-    public int calculate(int parameter1, int parameter2) {
+    public double calculate(int parameter1, int parameter2) {
         switch (this) {
         case NONE:
         case ADD:
-            return parameter1 + parameter2;
+            return (double) (parameter1 + parameter2);
         case SUB:
-            return parameter1 - parameter2;
+            return (double) (parameter1 - parameter2);
         case MUL:
-            return parameter1 * parameter2;
+            return (double) (parameter1 * parameter2);
         case DIV:
-            return parameter1 / parameter2;
+            return (parameter1 / (double) parameter2);
         }
-        return 0;
+        return 0.0;
     }
 
 }

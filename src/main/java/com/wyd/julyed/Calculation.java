@@ -1,8 +1,11 @@
 package com.wyd.julyed;
 
+import com.wyd.julyed.tool.GlobalManager;
 import com.wyd.julyed.tool.enums.Operator;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,13 +17,16 @@ public class Calculation {
      */
     private IntegerProperty parameter1 = new SimpleIntegerProperty();
     private IntegerProperty parameter2 = new SimpleIntegerProperty();
-    private IntegerProperty result = new SimpleIntegerProperty();
+    private DoubleProperty result = new SimpleDoubleProperty();
     private Operator operator = Operator.NONE;
     private StringProperty calc = new SimpleStringProperty(Constant.OPERATOR_EQU);
+    private boolean calculated = false;
 
     public Calculation() {
         setParameter1(0);
         setParameter2(0);
+        setCalculated(false);
+        setOperator(Operator.NONE);
     }
 
     public void setParameter1(int parameter) {
@@ -31,7 +37,7 @@ public class Calculation {
         this.parameter2.set(parameter);
     }
 
-    public void setResult(Integer result) {
+    public void setResult(double result) {
         this.result.set(result);
     }
 
@@ -51,8 +57,8 @@ public class Calculation {
         return parameter2;
     }
 
-    public IntegerProperty getResultProperty() {
-        return result;
+    public StringProperty getResultProperty() {
+        return new SimpleStringProperty(GlobalManager.formatDoubleNumber(result.get()));
     }
 
     public StringProperty getOperatorProperty() {
@@ -65,6 +71,14 @@ public class Calculation {
 
     public Operator getOperator() {
         return operator;
+    }
+
+    public boolean isCalculated() {
+        return calculated;
+    }
+
+    public void setCalculated(boolean calculated) {
+        this.calculated = calculated;
     }
 
 }

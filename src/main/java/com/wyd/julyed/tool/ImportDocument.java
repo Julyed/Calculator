@@ -26,7 +26,7 @@ public class ImportDocument {
         calcuation.setParameter1(Integer.valueOf(item.getAttributeValue(Constant.STRING_PARAMETER1)));
         calcuation.setOperator(Operator.getOperator(item.getAttributeValue(Constant.STRING_OPERATOR)));
         calcuation.setParameter2(Integer.valueOf(item.getAttributeValue(Constant.STRING_PARAMETER2)));
-        calcuation.setResult(Integer.valueOf(item.getAttributeValue(Constant.STRING_RESULT)));
+        calcuation.setResult(Double.valueOf(item.getAttributeValue(Constant.STRING_RESULT)));
         GlobalManager.getList().add(calcuation);
     }
 }

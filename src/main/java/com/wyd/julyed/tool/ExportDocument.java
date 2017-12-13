@@ -19,7 +19,7 @@ public class ExportDocument {
     private static void addElement(Calculation calculation) {
         int parameter1 = calculation.getParameter1Property().getValue();
         int parameter2 = calculation.getParameter2Property().getValue();
-        int result = calculation.getResultProperty().getValue();
+        String result = calculation.getResultProperty().getValue();
         String operator = calculation.getOperatorProperty().getValue();
 
         Element child = new Element(Constant.STRING_HISTORY);
@@ -27,7 +27,7 @@ public class ExportDocument {
         child.setAttribute(Constant.STRING_PARAMETER1, String.valueOf(parameter1));
         child.setAttribute(Constant.STRING_OPERATOR, operator);
         child.setAttribute(Constant.STRING_PARAMETER2, String.valueOf(parameter2));
-        child.setAttribute(Constant.STRING_RESULT, String.valueOf(result));
+        child.setAttribute(Constant.STRING_RESULT, result);
     }
 
     public static void exportXmlFile(File saveFile) throws IOException {
