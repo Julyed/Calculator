@@ -18,7 +18,7 @@ public class BuildDocument {
 	public BuildDocument() {
 		// TODO Auto-generated constructor stub
 		document = new Document();
-		root = new Element("histories");
+		root = new Element(Constant.STRING_HISTORIES);
 		document.setRootElement(root);
 	}
 
@@ -28,12 +28,12 @@ public class BuildDocument {
 		result = calculation.getResultProperty().getValue();
 		operator = calculation.getOperatorProperty().getValue();
 
-		Element child = new Element("history");
+		Element child = new Element(Constant.STRING_HISTORY);
 		root.addContent(child);
-		child.setAttribute("parameter1", String.valueOf(parameter1));
-		child.setAttribute("operator", operator);
-		child.setAttribute("parameter2", String.valueOf(parameter2));
-		child.setAttribute("result", String.valueOf(result));
+		child.setAttribute(Constant.STRING_PARAMETER1, String.valueOf(parameter1));
+		child.setAttribute(Constant.STRING_OPERATOR, operator);
+		child.setAttribute(Constant.STRING_PARAMETER2, String.valueOf(parameter2));
+		child.setAttribute(Constant.STRING_RESULT, String.valueOf(result));
 	}
 
 	public void outputXmlFile(File saveFile) throws IOException {

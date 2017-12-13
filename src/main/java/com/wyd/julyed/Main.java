@@ -15,7 +15,7 @@ public class Main extends Application {
 			// Read file fxml and draw interface.
 			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_SCENE));
 			GlobalManager.setMainStage(primaryStage);
-			primaryStage.setTitle("My Calculator");
+			primaryStage.setTitle(Constant.TITLE_CALCULATOR);
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
 

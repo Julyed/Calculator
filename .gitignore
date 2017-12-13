@@ -6,3 +6,4 @@ target/
 logs/
 result.xml
 _book/
+build.fxbuild

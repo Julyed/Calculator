@@ -16,7 +16,7 @@ public class Calculation {
 	private IntegerProperty parameter2 = new SimpleIntegerProperty();
 	private IntegerProperty result = new SimpleIntegerProperty();
 	private Operator operator = Operator.NONE;
-	private StringProperty calc = new SimpleStringProperty("=");
+	private StringProperty calc = new SimpleStringProperty(Constant.OPERATOR_EQU);
 
 	public Calculation() {
 		setParameter1(0);
@@ -29,6 +29,10 @@ public class Calculation {
 
 	public void setParameter2(int parameter) {
 		this.parameter2.set(parameter);
+	}
+
+	public void setResult(Integer result) {
+		this.result.set(result);
 	}
 
 	public void calculate() {

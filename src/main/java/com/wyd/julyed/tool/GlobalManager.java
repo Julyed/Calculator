@@ -31,4 +31,11 @@ public class GlobalManager {
 	public static ObservableList<Calculation> getList() {
 		return list;
 	}
+
+	public static String getMethodName() {
+		StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+		StackTraceElement e = stacktrace[2];
+		String methodName = e.getMethodName();
+		return methodName;
+	}
 }

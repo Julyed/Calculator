@@ -86,14 +86,14 @@ public class CalculatorController implements Initializable {
 	}
 
 	public void clickButtonCalc() {
-		calcResult.appendText("=");
-		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Calc"));
+		calcResult.appendText(Constant.OPERATOR_EQU);
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, Constant.STRING_CALC));
 		if (firstNum) {
 			calculation.setParameter1(0);
 		}
 		if (calculation.getOperator().equals(Operator.DIV) && calculation.getParameter2Property().getValue() == 0) {
 			calcResult.clear();
-			calcResult.appendText("Invalid divisor");
+			calcResult.appendText(Constant.STRING_INVALID_DIVISOR);
 		} else {
 			calculation.calculate();
 			calcResult.appendText(String.valueOf(calculation.getResultProperty().getValue()));
@@ -105,7 +105,7 @@ public class CalculatorController implements Initializable {
 
 	public void clickButtonClearAll() {
 		clearAll();
-		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, "Clear All"));
+		logger.info(String.format(Constant.PATTERN_LOG_PRESS_BUTTON, Constant.STRING_CLEAR_ALL));
 	}
 
 	@FXML
@@ -114,13 +114,13 @@ public class CalculatorController implements Initializable {
 			Stage stageShowHistory = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource(Constant.FXML_HISTORY_SCENE));
 
-			stageShowHistory.setTitle("History You See");
+			stageShowHistory.setTitle(Constant.TITLE_HISTORY);
 			stageShowHistory.setScene(new Scene(root));
 			stageShowHistory.initOwner(GlobalManager.getMainStage());
 			stageShowHistory.centerOnScreen();
 			stageShowHistory.showAndWait();
 		} catch (Exception e) {
-			logger.error("showing Error", e);
+			logger.error(String.format(Constant.PATTERN_EXCEPTION_AT_METHOD, GlobalManager.getMethodName()), e);
 		}
 	}
 

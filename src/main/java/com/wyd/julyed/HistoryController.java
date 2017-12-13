@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.JDOMException;
 
 import com.wyd.julyed.tool.DialogHelper;
 import com.wyd.julyed.tool.GlobalManager;
@@ -47,16 +48,28 @@ public class HistoryController implements Initializable {
 		try {
 			// save as:
 			FileChooser saveHistoryFileChooser = new FileChooser();
-			ExtensionFilter filter = new ExtensionFilter("xml文件", "*.xml");
+			ExtensionFilter filter = new ExtensionFilter(Constant.STRING_XML_FILE, Constant.EXTENSION_XML);
 			saveHistoryFileChooser.getExtensionFilters().add(filter);
 			File saveFile = saveHistoryFileChooser.showSaveDialog(GlobalManager.getMainStage());
 			buildDocument.outputXmlFile(saveFile);
 			// 保存成功弹出框
-			DialogHelper.popupInformation(null, Constant.SUCCESS);
+			DialogHelper.popupInformation(null, Constant.STRING_SUCCESS);
 		} catch (IOException e) {
-			logger.error("Showing Error", e);
+			logger.error(String.format(Constant.PATTERN_EXCEPTION_AT_METHOD, GlobalManager.getMethodName()), e);
 			// 保存失败弹出框
-			DialogHelper.popupError(null, Constant.ERROR);
+			DialogHelper.popupError(null, Constant.STRING_ERROR);
+		}
+	}
+
+	public void clickButtonShowLocalHistory() {
+		FileChooser localHistoryFileChooser = new FileChooser();
+		ExtensionFilter filter = new ExtensionFilter(Constant.STRING_XML_FILE, Constant.EXTENSION_XML);
+		localHistoryFileChooser.getExtensionFilters().add(filter);
+		File localFile = localHistoryFileChooser.showOpenDialog(GlobalManager.getMainStage());
+		try {
+			ImportDocument.importDocument(localFile);
+		} catch (JDOMException | IOException e) {
+			logger.error(String.format(Constant.PATTERN_EXCEPTION_AT_METHOD, GlobalManager.getMethodName()), e);
 		}
 	}
 
