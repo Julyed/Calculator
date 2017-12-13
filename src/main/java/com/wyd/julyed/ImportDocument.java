@@ -1,24 +1,18 @@
 package com.wyd.julyed;
 
 import java.io.File;
-import java.io.Reader;
-import java.sql.SQLException;
+import java.io.IOException;
 
-import javax.sql.RowSetInternal;
-import javax.sql.rowset.WebRowSet;
-import javax.sql.rowset.spi.XmlReader;
-import javax.swing.text.Document;
-
-import org.dom4j.io.SAXReader;
+import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 public class ImportDocument {
-	public ImportDocument (String fileName) {
-		File importXmlFile = new File(fileName);
-		SAXReader saxReader = new SAXReader();
-		Document document = saxReader.read(importXmlFile);
-		Element root = document.getRootElements();
-		Element 
-		 
-	}
+    public ImportDocument(String fileName) throws JDOMException, IOException {
+        File importXmlFile = new File(fileName);
+        SAXBuilder saxReader = new SAXBuilder();
+        Document document = saxReader.build(importXmlFile);
+        Element root = document.getRootElement();
+    }
 }
