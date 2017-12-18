@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="437.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wyd.julyed.controller.CalculatorController">
+<AnchorPane prefHeight="437.0" prefWidth="344.0" stylesheets="@calculator.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wyd.julyed.controller.CalculatorController">
     <children>
-        <Button layoutX="49.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton1" text="1" />
+        <Button fx:id="button1" layoutX="49.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton1" style="-fx-background-image:url('main/resources/com.wyd.julyed/1.png');   -fx-background-size: 35px;" text="1" />
         <Button layoutX="100.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton2" text="2" />
         <Button layoutX="151.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButton3" text="3" />
         <Button layoutX="49.0" layoutY="151.0" mnemonicParsing="false" onAction="#clickButton4" text="4" />

@@ -18,6 +18,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class CalculatorController implements Initializable {
@@ -26,6 +28,8 @@ public class CalculatorController implements Initializable {
     private boolean firstNum = true;
     private static Logger logger = LogManager.getLogger(CalculatorController.class);
 
+    @FXML
+    private Button button1;
     @FXML
     private TextField calcResult;
 
@@ -187,6 +191,9 @@ public class CalculatorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        button1.getStyleClass().add("button1");
+        Image oneImage = new Image(getClass().getResourceAsStream("main/resources/com/wyd/julyed/1.png"));
+        button1.setGraphic(new ImageView(oneImage));
         clearAll();
     }
 }
